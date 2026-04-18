@@ -1,7 +1,7 @@
 ### Scripty Shader Re-coded Edition
   **shader Developed to be compatible for low end PC & mobile (Pojav, Zalith, Etc,,, & any PC)**
 
-> Compatible with Iris, Optifine & Sodium. Mc 1.8 - Mc 26.1.1.
+> Compatible with Iris, Optifine & Sodium. Mc 1.20 - Mc 26.1.1.
 
 This version will strictly prioritize:
 
