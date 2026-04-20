@@ -1,0 +1,25 @@
+[T] Can toggle on/of at shaderpack setting.
+[E] Experimental function, might not work properly / Unoptimized.
+
+SSRERC v0.0 | Rebirth
+------------------------------------
+• Terrains, Sky & Elements
+------------------------------------
+ - Simple Shadow Toggle.
+ 
+ 
+SSRERC v0.1 | Massive Changes 
+------------------------------------
+• Terrains, Sky & Elements
+------------------------------------
+ - Can choose between Standard & Half Lambert. [T]
+ - Improved Sky & Time Cycle Color.
+ - Producal Stars. [T]
+ - Weather now work.
+ - Basic fixes on Torch, Emissive Block & Entities. (No Dynamic Block Colors Yet.
+------------------------------------
+• Post-Processings
+------------------------------------
+ - Film-Grains.
+ - Optimized Ditherings.
+ - Bloom. [E] [T]
