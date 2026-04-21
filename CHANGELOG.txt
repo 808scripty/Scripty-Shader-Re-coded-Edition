@@ -15,11 +15,13 @@ SSRERC v0.1 | Massive Changes
  - Can choose between Standard & Half Lambert. [T]
  - Improved Sky & Time Cycle Color.
  - Producal Stars. [T]
- - Weather now work.
+ - Weather.
  - Basic fixes on Torch, Emissive Block & Entities. (No Dynamic Block Colors Yet.
+ - Hand & Item shading fixed.
 ------------------------------------
 • Post-Processings
 ------------------------------------
  - Film-Grains.
  - Optimized Ditherings.
- - Bloom. [E] [T]
+ - Bloom. [E]
+ 
