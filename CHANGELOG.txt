@@ -25,7 +25,7 @@ SSRERC v0.1 | Massive Changes
  - Optimized Ditherings.
  - Bloom. [E]
  
-SSRERC v0.1 | In-Progress
+SSRERC v0.2 | In-Progress
 
 ------------------------------------
 • What to Expect (Upcoming features)
