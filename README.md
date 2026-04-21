@@ -16,8 +16,8 @@ This version will strictly prioritize:
 
 _To view codes for each version, Change branch._
 
-_AL = Alpha versions source code._
+- _AL = Alpha versions source code._
 
-_BE = Beta versions source code._
+- _BE = Beta versions source code._
 
-_ST = Stable versions source code._
+- _ST = Stable versions source code._
