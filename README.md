@@ -22,4 +22,4 @@ This version will strictly prioritize:
 
 - _ST = Stable versions source code._
 
-_For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices. **Download from release page unless you want to look at my progress om this shader**._
+_For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices. **Download from release page unless you want to look at my progresses on this shader**._
