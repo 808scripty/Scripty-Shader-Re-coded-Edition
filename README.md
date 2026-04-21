@@ -1,8 +1,8 @@
-_For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices._
+For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices.
 
 **Change tags** to the versions you want to inspect for best Accuracy.
 
-**Download from release page unless you wan't to look at my progresses on this shader**._
+_**Download from release page unless you wan't to look at my progresses on this shader**._
 
 ---
 
