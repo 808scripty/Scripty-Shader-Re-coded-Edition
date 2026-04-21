@@ -25,3 +25,10 @@ SSRERC v0.1 | Massive Changes
  - Optimized Ditherings.
  - Bloom. [E]
  
+SSRERC v0.1 | In-Progress
+
+------------------------------------
+• What to Expect (Upcoming features)
+------------------------------------
+ - Shader supports for Nether/End Dimension.
+ - Terrains shaders improvements
