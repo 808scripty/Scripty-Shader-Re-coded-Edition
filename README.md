@@ -1,7 +1,15 @@
+For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices.
+
+**Change tags** to the versions you want to inspect for best Accuracy.
+
+_**Download from release page unless you wan't to look at my progresses on this shader**._
+
+---
+
 ### Scripty Shader Re-coded Edition
   **shader Developed to be compatible for low end PC & mobile (Pojav, Zalith, Etc,,, & any PC)**
 
-> Compatible with Iris, Optifine & Sodium. Mc 1.20 - Mc 26.1.1.
+> Compatible with Iris, -Optifine- & Sodium. Mc 1.20 - Mc 26.1.1.
 
 This version will strictly prioritize:
 
@@ -21,3 +29,4 @@ This version will strictly prioritize:
 - _BE = Beta versions source code._
 
 - _ST = Stable versions source code._
+
