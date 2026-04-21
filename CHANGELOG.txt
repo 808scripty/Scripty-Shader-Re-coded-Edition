@@ -32,3 +32,5 @@ SSRERC v0.2 | In-Progress
 ------------------------------------
  - Shader supports for Nether/End Dimension.
  - Terrains shaders improvements
+
+Currently, Main branch are expected to receive some of the changes from AL3 branch. this was on purpose to save changes in certain stage of improvements & Convinient testing across different devices.
