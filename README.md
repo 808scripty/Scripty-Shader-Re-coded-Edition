@@ -12,3 +12,12 @@ This version will strictly prioritize:
 - Great visual, Great FPS: Aiming specifically for performance gain doesn't always mean degrading the shader visuals entirely. SSRE shader will and will always still offer those signature vibrant but realistic color cycle and visuals.
 
 - Optimized for low-end Mobile & PC: 90% of codes in this shader used pure math and avoid harmful calcution technique (if-statements, loops, composite, high sample).
+
+
+_To view codes for each version, Change branch._
+
+_AL = Alpha versions source code._
+
+_BE = Beta versions source code._
+
+_ST = Stable versions source code._
