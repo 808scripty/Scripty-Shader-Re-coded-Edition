@@ -21,3 +21,5 @@ This version will strictly prioritize:
 - _BE = Beta versions source code._
 
 - _ST = Stable versions source code._
+
+_For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices._
