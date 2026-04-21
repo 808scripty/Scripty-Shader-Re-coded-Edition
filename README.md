@@ -1,3 +1,7 @@
+_For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices. **Download from release page unless you wan't to look at my progresses on this shader**._
+
+---
+
 ### Scripty Shader Re-coded Edition
   **shader Developed to be compatible for low end PC & mobile (Pojav, Zalith, Etc,,, & any PC)**
 
@@ -22,4 +26,3 @@ This version will strictly prioritize:
 
 - _ST = Stable versions source code._
 
-_For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices. **Download from release page unless you want to look at my progresses on this shader**._
