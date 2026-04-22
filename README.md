@@ -24,6 +24,7 @@ This version will strictly prioritize:
 - Optimized for low-end Mobile & PC: 90% of codes in this shader used pure math and avoid harmful calcution technique (if-statements, loops, composite, high sample).
 
 
+
 **_To view codes for each version, Change tags._**
 
 - _AL = Alpha versions source code._
