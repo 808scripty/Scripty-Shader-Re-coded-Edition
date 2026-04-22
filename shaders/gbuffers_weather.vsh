@@ -3,7 +3,7 @@
 varying vec2 texcoord;
 varying vec4 glcolor;
 varying float viewDist;
-varying vec3 vTimeFactors; 
+varying vec3 vTimeFactors; // NEW
 
 uniform mat4 gbufferModelViewInverse; 
 uniform vec3 sunPosition; 
