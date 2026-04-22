@@ -15,6 +15,7 @@ void main() {
 
     float luminance = dot(baseColor.rgb, vec3(0.299, 0.587, 0.114));
     
+
     float timeBrightness = vTimeFactors.x + vTimeFactors.y * 0.5;
     float rainDarkness = clamp(timeBrightness + 0.05, 0.0, 1.0); 
     vec3 grayRain = vec3(luminance) * 0.8 * rainDarkness; 

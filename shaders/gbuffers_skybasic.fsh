@@ -1,7 +1,5 @@
 #version 120
 
-
-
 varying vec3 viewDir;
 varying vec3 sunDir;
 varying vec3 vTimeFactors; 
@@ -9,7 +7,7 @@ uniform vec3 fogColor;
 uniform float rainStrength;
 uniform float frameTimeCounter;
 
-#define PROCEDURAL_STARS
+#define PROCEDUL_STARS
 
 void main() {
     vec3 vDir = normalize(viewDir);
@@ -28,14 +26,13 @@ void main() {
     vec3 skyBase = mix(nightSky, setSky, sunsetFactor);
     skyBase = mix(skyBase, daySky, dayFactor);
     
-    #ifdef PROCEDURAL_STARS
+    #ifdef PROCEDUL_STARS
     vec3 starCoord = floor(vDir * 350.0); 
     float starHash = fract(sin(dot(starCoord, vec3(12.9898, 78.233, 45.543))) * 43758.5453);
 
     float stars = smoothstep(0.995, 1.0, starHash) * nightFactor * clamp(up * 3.0, 0.0, 1.0);
     skyBase += vec3(stars) * (1.0 - rainStrength);
     #endif
-
     float horizon = clamp(1.0 - abs(up + 0.05), 0.0, 1.0);
     horizon = pow(horizon, 4.0) * (dayFactor + sunsetFactor * 1.5 + nightFactor * 0.2);
     vec3 hazeCol = mix(mix(vec3(0.2, 0.3, 0.5), vec3(1.0, 0.4, 0.1), sunsetFactor), vec3(0.7, 0.85, 1.0), dayFactor);
