@@ -22,6 +22,12 @@ This version will strictly prioritize:
 - Optimized for low-end Mobile & PC: 90% of codes in this shader used pure math and avoid harmful calcution technique (if-statements, loops, composite, high sample).
 
 
+**Target Hardware:** Optimized specifically for mobile GPUs (Mali Bifrost/Valhall).
+
+**Architecture:** Written to minimize heavy calculations while maintaining high-fidelity visuals like mist and soft shadows.
+
+**Compatibility:** Verified for Zink and specific mobile renderers.
+
 **_To view codes for each version, Change tags._**
 
 - _AL = Alpha versions source code._
