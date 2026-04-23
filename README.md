@@ -9,7 +9,7 @@ Now i lebeled it as "Main-Experimental"
 
 - _ST = Stable versions source code._
 
-_**Download from release page unless you wan't to look at my progresses on this shader**._
+_**Download from release page unless you want to look at my progresses on this shader**._
 
 ---
 
