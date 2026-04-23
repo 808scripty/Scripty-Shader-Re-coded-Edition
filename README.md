@@ -3,6 +3,11 @@ For now, main branch are expected to receive "some" changes from AL3 branch. thi
 Now i lebeled it as "Main-Experimental"
 
 **Change tags** to the versions you want to inspect for best Accuracy.
+- _AL = Alpha versions source code._
+
+- _BE = Beta versions source code._
+
+- _ST = Stable versions source code._
 
 _**Download from release page unless you wan't to look at my progresses on this shader**._
 
@@ -23,13 +28,4 @@ This version will strictly prioritize:
 
 - Optimized for low-end Mobile & PC: 90% of codes in this shader used pure math and avoid harmful calcution technique (if-statements, loops, composite, high sample).
 
-
-
-**_To view codes for each version, Change tags._**
-
-- _AL = Alpha versions source code._
-
-- _BE = Beta versions source code._
-
-- _ST = Stable versions source code._
 
