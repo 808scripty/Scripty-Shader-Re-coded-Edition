@@ -24,13 +24,17 @@ SSRERC v0.1 | Massive Changes
  - Film-Grains.
  - Optimized Ditherings.
  - Bloom. [E]
- 
-SSRERC v0.2 | In-Progress
 
+SSRERC v0.2 | Improvements
 ------------------------------------
-• What to Expect (Upcoming features)
+• Terrains, Sky & Elements
 ------------------------------------
- - Shader supports for Nether/End Dimension.
- - Terrains shaders improvements
+ - Improved sky. [E]
+ - ​Procedural Stars is gone (will be back in the next update once I finished the sky).
+ - Basic water reflections. [C]
+------------------------------------
+• Post-Processings
+------------------------------------
+ - No updates.
 
 Currently, Main branch are expected to receive some of the changes from AL3 branch. this was done on purpose to save changes in certain stage of improvements & Convinient testing across different devices.[E]
