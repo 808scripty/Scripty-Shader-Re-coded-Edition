@@ -34,26 +34,29 @@ void main() {
     }
 
     vec3 viewDir = normalize(cameraPosition - vWorldPos);
-
-    vec3 waterDeep = vec3(0.05, 0.20, 0.35); 
-    vec3 waterShallow = vec3(0.15, 0.55, 0.50); 
+    
+    vec3 waterDeep = vec3(0.08, 0.16, 0.26); 
+    vec3 waterShallow = vec3(0.18, 0.35, 0.38); 
     
     float viewAngle = max(dot(n, viewDir), 0.0);
-    float colorMix = pow(viewAngle, 0.7);
     
-    vec3 waterBase = mix(waterDeep, waterShallow, colorMix) * (vAmbCol * 1.8);
+    float colorMix = sqrt(viewAngle); 
     
+    vec3 waterBase = mix(waterDeep, waterShallow, colorMix) * (vAmbCol * 1.5);
     vec3 reflection = getWaterReflection(n, viewDir, vSunCol, vAmbCol, vTimeFactors.y);
     
-    float specular = pow(max(0.0, dot(n, normalize(sunDir))), 256.0) * vTimeFactors.x * 2.5;
-    
-    vec3 finalRGB = (baseColor.rgb * 0.15 + waterBase * lm) + reflection + (vSunCol * specular);
-    
+    float specBase = max(0.0, dot(n, normalize(sunDir)));
+    specBase *= specBase; 
+    specBase *= specBase; 
+    specBase *= specBase; 
+    float specular = specBase * specBase * specBase * specBase * vTimeFactors.x * 3.5; 
+
+    vec3 finalRGB = (baseColor.rgb * 0.1 + waterBase * lm) + reflection + (vSunCol * specular);
     finalRGB = 1.0 - exp(-finalRGB * 1.15);
 
     finalRGB = applySSREFog(finalRGB, vWorldPos, viewDist, rainStrength, fogColor, vTimeFactors, 32.0, 24.0);
     
-    float finalAlpha = (worldNormal.y > 0.8) ? mix(0.9, 0.45, viewAngle) : 0.7;
+    float finalAlpha = (worldNormal.y > 0.8) ? mix(0.9, 0.35, viewAngle) : 0.7;
     
     gl_FragData[0] = vec4(finalRGB, finalAlpha);
 }

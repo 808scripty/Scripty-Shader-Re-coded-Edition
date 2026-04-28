@@ -3,6 +3,7 @@
 #include "/lib/ssre_math.glsl"
 #include "/lib/ssre_atmos.glsl"
 #include "/lib/ssre_water.glsl"
+#include "/lib/ssre_color.glsl"
 
 varying vec2 texcoord;
 varying vec4 glcolor;
@@ -34,25 +35,25 @@ void main() {
     }
 
     vec3 viewDir = normalize(cameraPosition - vWorldPos);
-    vec3 waterDeep = vec3(0.05, 0.20, 0.35); 
-    vec3 waterShallow = vec3(0.15, 0.55, 0.50); 
+    
+    vec3 waterDeep = vec3(0.08, 0.16, 0.26); 
+    vec3 waterShallow = vec3(0.18, 0.35, 0.38); 
     
     float viewAngle = max(dot(n, viewDir), 0.0);
-    float colorMix = pow(viewAngle, 0.7); 
     
-    vec3 waterBase = mix(waterDeep, waterShallow, colorMix) * (vAmbCol * 1.8);
+    float colorMix = sqrt(viewAngle); 
     
+    vec3 waterBase = mix(waterDeep, waterShallow, colorMix) * (vAmbCol * 1.5);
     vec3 reflection = getWaterReflection(n, viewDir, vSunCol, vAmbCol, vTimeFactors.y);
     
-    float specular = pow(max(0.0, dot(n, normalize(sunDir))), 256.0) * vTimeFactors.x * 2.5;
+    vec3 halfVector = normalize(normalize(sunDir) + viewDir);
+    float NdotH = max(0.0, dot(n, halfVector));
     
-    vec3 finalRGB = (baseColor.rgb * 0.15 + waterBase * lm) + reflection + (vSunCol * specular);
-    
-    finalRGB = 1.0 - exp(-finalRGB * 1.15);
+    float specular = pow(NdotH, 128.0) * vTimeFactors.x * 12.0; 
 
-    finalRGB = applySSREFog(finalRGB, vWorldPos, viewDist, rainStrength, fogColor, vTimeFactors, 32.0, 24.0);
+    vec3 finalRGB = (baseColor.rgb * 0.1 + waterBase * lm) + reflection + (vSunCol * specular);
     
-    float finalAlpha = (worldNormal.y > 0.8) ? mix(0.9, 0.45, viewAngle) : 0.7;
+    finalRGB = ACESFilm(finalRGB);
     
-    gl_FragData[0] = vec4(finalRGB, finalAlpha);
+    gl_FragData[0] = vec4(finalRGB, 0.85); 
 }

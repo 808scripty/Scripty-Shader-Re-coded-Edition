@@ -13,12 +13,12 @@ uniform float viewHeight;
 
 // --- SETTINGS ---
 #define GRAIN // Minimize the banding in the sky gradients & add textures to the surfaces.
-#define GRAIN_STRENGTH 0.025 // Adjust this for more or less visible grain
+#define GRAIN_STRENGTH 0.025 // [0.000, 0.005, 0.010, 0.015, 0.020, 0.025, 0.030, 0.035, 0.040, 0.045, 0.050, 0.055, 0.060, 0.065, 0.070, 0.075, 0.080, 0.085, 0.090, 0.095, 0.100]
 
 #define BLOOM // Toggle for Pseudo-Bloom
-#define BLOOM_THRESHOLD 0.65 // How bright a pixel must be to glow (0.0 to 1.0)
-#define BLOOM_STRENGTH 0.20  // How intense the glowing light is
-#define BLOOM_RADIUS 5.0     // How far the light spreads (Keep under 5.0 for mobile)
+#define BLOOM_THRESHOLD 0.65 // [0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1.0]
+#define BLOOM_STRENGTH 0.20  // [0.10 0.20 0.30 0.40 0.50]
+#define BLOOM_RADIUS 5.0     // [0.1 0.2 0.3 0.4 0.5]
 #define DITHERING
 
 vec3 getBloom(vec2 uv) {
