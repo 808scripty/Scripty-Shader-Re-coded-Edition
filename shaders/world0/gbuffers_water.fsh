@@ -3,6 +3,7 @@
 #include "/lib/ssre_math.glsl"
 #include "/lib/ssre_atmos.glsl"
 #include "/lib/ssre_water.glsl"
+#include "/lib/ssre_color.glsl"
 
 varying vec2 texcoord;
 varying vec4 glcolor;
@@ -45,18 +46,14 @@ void main() {
     vec3 waterBase = mix(waterDeep, waterShallow, colorMix) * (vAmbCol * 1.5);
     vec3 reflection = getWaterReflection(n, viewDir, vSunCol, vAmbCol, vTimeFactors.y);
     
-    float specBase = max(0.0, dot(n, normalize(sunDir)));
-    specBase *= specBase; 
-    specBase *= specBase; 
-    specBase *= specBase; 
-    float specular = specBase * specBase * specBase * specBase * vTimeFactors.x * 3.5; 
+    vec3 halfVector = normalize(normalize(sunDir) + viewDir);
+    float NdotH = max(0.0, dot(n, halfVector));
+    
+    float specular = pow(NdotH, 128.0) * vTimeFactors.x * 12.0; 
 
     vec3 finalRGB = (baseColor.rgb * 0.1 + waterBase * lm) + reflection + (vSunCol * specular);
-    finalRGB = 1.0 - exp(-finalRGB * 1.15);
-
-    finalRGB = applySSREFog(finalRGB, vWorldPos, viewDist, rainStrength, fogColor, vTimeFactors, 32.0, 24.0);
     
-    float finalAlpha = (worldNormal.y > 0.8) ? mix(0.9, 0.35, viewAngle) : 0.7;
+    finalRGB = ACESFilm(finalRGB);
     
-    gl_FragData[0] = vec4(finalRGB, finalAlpha);
+    gl_FragData[0] = vec4(finalRGB, 0.85); 
 }

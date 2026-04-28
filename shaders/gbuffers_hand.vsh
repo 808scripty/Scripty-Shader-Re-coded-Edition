@@ -38,13 +38,13 @@ void main() {
     vec3 setSun = vec3(1.0, 0.45, 0.1);
     vec3 dayAmb = vec3(0.5, 0.6, 0.8);
     vec3 setAmb = vec3(0.4, 0.25, 0.2);
-    vec3 blueAmb = vec3(0.15, 0.20, 0.30); 
-
+    vec3 blueAmb = vec3(0.05, 0.08, 0.15);
+    
     vSunCol = mix(setSun, daySun, dayFactor);
     vAmbCol = mix(blueAmb, mix(setAmb, dayAmb, dayFactor), dayFactor + sunsetFactor);
 
     vec3 dayRain = vec3(0.35, 0.35, 0.35);
-    vec3 nightRain = vec3(0.12, 0.15, 0.20); 
+    vec3 nightRain = vec3(0.02, 0.03, 0.05); 
     vec3 currentRain = mix(nightRain, dayRain, dayFactor + sunsetFactor * 0.5);
     
     vSunCol = mix(vSunCol, currentRain * 0.2, rainStrength);
