@@ -1,5 +1,4 @@
-**Shader files are currently corrupt on gitbub if the files is zipped. RC0.2 will also be delayed due to that reason**
-Delay from : Tue 28 Apr 2026 (today) To : Thu 30 Apr 2026.
+**Shader files are currently corrupt on gitbub if the files is zipped.**
 
 For now, main branch are expected to receive "some" changes from AL3 branch. this was done on purpose to save progress&convenient testing across different devices.
 
