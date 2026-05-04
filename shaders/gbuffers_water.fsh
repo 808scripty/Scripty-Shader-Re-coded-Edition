@@ -3,6 +3,7 @@
 #include "/lib/ssre_math.glsl"
 #include "/lib/ssre_atmos.glsl"
 #include "/lib/ssre_water.glsl"
+#include "/lib/ssre_color.glsl"
 
 varying vec2 texcoord;
 varying vec4 glcolor;
@@ -34,16 +35,16 @@ void main() {
     }
 
     vec3 viewDir = normalize(cameraPosition - vWorldPos);
-    
     vec3 sDir = normalize(sunDir);
+    
     float sunH = clamp(sDir.y, -1.0, 1.0);
     float skyDayFactor = clamp(sunH * 4.0 + 0.2, 0.0, 1.0);
     float skySunsetFactor = clamp(1.0 - abs(sunH * 5.0), 0.0, 1.0);
 
-    vec3 dayZenith   = vec3(0.12, 0.28, 0.65);
+    vec3 dayZenith   = vec3(0.30, 0.29, 0.20);
     vec3 dayHorizon  = vec3(0.45, 0.65, 0.85);
-    vec3 sunsetZenith  = vec3(0.15, 0.20, 0.30);
-    vec3 sunsetHorizon = vec3(0.85, 0.35, 0.15);
+    vec3 sunsetZenith  = vec3(0.25, 0.20, 0.30);
+    vec3 sunsetHorizon = vec3(0.75, 0.35, 0.15);
     vec3 nightZenith   = vec3(0.01, 0.02, 0.05);
     vec3 nightHorizon  = vec3(0.02, 0.05, 0.12);
 
@@ -53,7 +54,6 @@ void main() {
     vec3 refDir = reflect(-viewDir, n);
     float refElev = clamp(refDir.y, 0.0, 1.0);
     float skyGradient = pow(1.0 - refElev, 4.0); 
-
     vec3 fakeSky = mix(zenith, horizon, skyGradient);
     
     float cosTheta = dot(refDir, sDir);
@@ -68,33 +68,37 @@ void main() {
 
     float viewAngle = max(dot(n, viewDir), 0.0);
     float fRange = 1.0 - viewAngle;
-    float f2 = fRange * fRange;
-    float fresnel = f2 * f2 * fRange; 
-    float metallicFresnel = mix(0.55, 1.0, fresnel);
+    float fresnel = pow(fRange, 5.0); 
+    float reflectionStrength = mix(0.1, 0.4, fresnel); 
 
-    vec3 waterBase = fakeSky * 0.1;
-    vec3 reflection = fakeSky * metallicFresnel;
+    vec3 halfVector = normalize(sDir + viewDir);
+    float NdotH = max(0.0, dot(n, halfVector));
+    float sunSpecular = pow(NdotH, 128.0) * vTimeFactors.x; 
+    vec3 sunFinal = vSunCol * sunSpecular * 15.0; 
 
-    vec3 sDirNorm = normalize(sunDir);
-    vec3 halfVector = normalize(sDirNorm + viewDir);
+    vec3 waterSurface = fakeSky * reflectionStrength; 
+    vec3 waterBody = (baseColor.rgb * 0.1) * lm;
     
-    float specBase = max(0.0, dot(n, halfVector));
-    float specular = pow(specBase, 64.0) * vTimeFactors.x * 3.5;
+    vec3 finalRGB = waterBody + waterSurface + sunFinal;
+    
+    vec3 fogDay = vec3(0.50, 0.65, 0.85); 
+    vec3 fogSunset = vec3(0.29, 0.25, 0.40); 
+    vec3 fogNight  = vec3(0.02, 0.04, 0.01); 
 
-    float rimLight = 1.0 - max(0.0, dot(n, viewDir));
-    rimLight = pow(rimLight, 4.0);
+    vec3 dynamicFog = (fogDay * vTimeFactors.x) + (fogSunset * vTimeFactors.y) + (fogNight * vTimeFactors.z);
+    dynamicFog = mix(dynamicFog, vec3(0.2, 0.2, 0.25), rainStrength);
 
-    float viewDotSun = max(0.0, dot(-viewDir, sDirNorm));
-    float sssWrap = max(0.0, dot(sDirNorm, -n) * 0.5 + 0.5);
-    
-    float translucency = pow(viewDotSun, 16.0) * sssWrap * 3.0 * rimLight * (vTimeFactors.x + vTimeFactors.y * 1.5);
-    
-    vec3 finalRGB = (baseColor.rgb * 0.1 + waterBase * lm) + reflection + (vSunCol * specular) + (baseColor.rgb * vSunCol * translucency);
-    finalRGB = 1.0 - exp(-finalRGB * 1.15);
+    float fogDensity = 50.0 - (vTimeFactors.y * 8.0) - (rainStrength * 12.0);
+    float distanceFactor = clamp(viewDist / 128.0, 0.0, 1.0);
+    vec3 blueShift = vec3(0.05, 0.1, 0.25) * distanceFactor * vTimeFactors.x;
+    vec3 finalFogColor = mix(dynamicFog, dynamicFog + blueShift, distanceFactor);
 
-    finalRGB = applySSREFog(finalRGB, vWorldPos, viewDist, rainStrength, fogColor, vTimeFactors, 32.0, 24.0);
+    finalRGB = applySSREFog(finalRGB, vWorldPos, viewDist, rainStrength, finalFogColor, vTimeFactors, fogDensity, 12.0);
+    finalRGB = ACESFilm(finalRGB);
+    finalRGB = pow(max(finalRGB, vec3(0.0)), vec3(1.0)); 
     
-    float finalAlpha = (worldNormal.y > 0.8) ? mix(0.9, 0.35, viewAngle) : 0.7;
-    
-    gl_FragData[0] = vec4(finalRGB, finalAlpha);
+    float waterAlpha = 0.60;
+    float finalAlpha = clamp(waterAlpha + sunSpecular, 0.0, 1.0);
+
+    gl_FragData[0] = vec4(finalRGB, finalAlpha); 
 }

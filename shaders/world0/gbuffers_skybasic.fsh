@@ -1,7 +1,5 @@
 #version 120
 
-#include "/lib/ssre_color.glsl"
-
 varying vec3 viewDir;
 varying vec3 sunDir;
 
@@ -17,7 +15,7 @@ float getMiePhase(float cosTheta, float g) {
 void main() {
     vec3 vDir = normalize(viewDir);
     vec3 sDir = normalize(sunDir);
-    
+
     float sunH = clamp(sDir.y, -1.0, 1.0);
     float dayFactor = clamp(sunH * 4.0 + 0.2, 0.0, 1.0);
     float sunsetFactor = clamp(1.0 - abs(sunH * 5.0), 0.0, 1.0);
@@ -25,11 +23,12 @@ void main() {
     vec3 dayZenith   = vec3(0.12, 0.28, 0.65);
     vec3 dayHorizon  = vec3(0.45, 0.65, 0.85);
     
-    vec3 sunsetZenith  = vec3(0.15, 0.20, 0.30);
+    vec3 sunsetZenith  = vec3(0.15, 0.20, 0.40);
     vec3 sunsetHorizon = vec3(0.85, 0.35, 0.15);
+    
     vec3 nightZenith   = vec3(0.01, 0.02, 0.05);
     vec3 nightHorizon  = vec3(0.02, 0.05, 0.12);
-    
+
     vec3 zenith  = mix(nightZenith, mix(sunsetZenith, dayZenith, dayFactor), dayFactor + sunsetFactor);
     vec3 horizon = mix(nightHorizon, mix(sunsetHorizon, dayHorizon, dayFactor), dayFactor + sunsetFactor);
 
@@ -38,39 +37,17 @@ void main() {
     vec3 sky = mix(zenith, horizon, gradient);
 
     float cosTheta = dot(vDir, sDir);
-    float sunFade = smoothstep(-0.0990, 0.1, sDir.y);
-
     if (sDir.y > -0.1) {
-        float mie1 = getMiePhase(cosTheta, 0.88);
+        float mie = getMiePhase(cosTheta, 0.85); 
         vec3 sunColor = mix(vec3(1.0, 0.4, 0.1), vec3(1.0, 0.9, 0.8), dayFactor);
         
-
-        sky += sunColor * mie1 * 0.015 * (1.0 - viewElev * 0.9) * sunFade;
-        sky += sunColor * mie1 * 0.5 * (1.0 - viewElev * 0.9) * sunFade;
-        
-        vec3 sunColor2 = mix(vec3(1.0, 0.4, 0.1), vec3(1.0, 0.9, 0.8), dayFactor);
-        sky += sunColor2 * mie1 * 0.015 * (1.0 - viewElev * 0.9) * sunFade;
-        
-        float mie2 = getMiePhase(cosTheta, 0.90);
-        sky += sunColor2 * mie2 * 1.5 * (1.0 - viewElev * 0.9) * sunFade;
+        sky += sunColor * mie * 0.015 * (1.0 - viewElev * 0.5); 
     }
-    float nightFactor = clamp(-sunH * 8.0 - 0.5, 0.0, 1.0);
-    vec3 fogDay = vec3(0.60, 0.60, 0.60);
-    vec3 fogSunset = vec3(0.13, 0.11, 0.12);
-    vec3 fogNight  = vec3(0.02, 0.04, 0.05);
-    vec3 dynamicFog = (fogDay * dayFactor) + 
-                      (fogSunset * sunsetFactor) + 
-                      (fogNight * nightFactor);
-    dynamicFog = mix(dynamicFog, vec3(0.2, 0.2, 0.25), rainStrength);
-    
-    vec3 finalFogColor = dynamicFog;
-    float skyFogFactor = pow(1.0 - viewElev, 3.0);
-    sky = mix(sky, finalFogColor, skyFogFactor);
 
     vec3 rainSky = vec3(0.15, 0.18, 0.22);
     sky = mix(sky, rainSky, rainStrength);
-    
-    sky = ACESFilm(sky);
-    sky = pow(max(sky, vec3(0.0)), vec3(1.05 / 0.90));
+
+    sky = 1.0 - exp(-1.5 * sky);
+
     gl_FragColor = vec4(sky, 1.0);
 }
